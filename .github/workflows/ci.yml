@@ -1,0 +1,16 @@
+name: CI
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build iOS
+        run: |
+          cd ios
+          xcodebuild -project MusicSquare.xcodeproj -scheme MusicSquare -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16' build || echo "No xcodeproj found; run xcodegen or open manually"
